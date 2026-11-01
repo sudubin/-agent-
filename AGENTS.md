@@ -1,5 +1,17 @@
 # AGENTS.md
 
+## 协作台迭代入口
+
+本仓库是用户维护的独立协作台产品快照。先读 `README.md`、`README.coordinator.zh-CN.md` 和 `UPSTREAM.md`。上游 `CONTRIBUTING.md` 中的维护者审批规则仅适用于向官方上游投稿；在本仓库内按用户授权开发，不需要为本地产品迭代向上游发 issue 或联系维护者。
+
+- 独立界面：`frontend/src/coordinator/`；入口：`coordinator-main.ts` / `coordinator-preload.ts`；构建：`npm --prefix frontend run build:coordinator`。
+- 保持主 agent 多轮对话、可编辑且需确认的任务卡、历史轮次与真实运行/验收事实。不要把 idle 当作验收完成。
+- 运行数据仅使用协作台自己的 `~/.ao/coordinator`，不触碰官方 AO 或用户其他项目。测试使用自己的临时项目，不向用户正在开发的项目派单。
+- 不提交应用包、下载的运行组件、日志、凭据或 private/ 内容。当前仓库不含上游工作流；自动化在用户要求时单独设计。
+- 多 agent 客户端能力按真实验证范围描述：Codex 项目归组可用，AGY 桌面同会话桥、其他客户端原生项目归组与 Muse 自动派单仍待完善。
+- 前端保持薄界面，生命周期、队列、权限与消息持久化通过后端服务/API；OpenAPI 和 sqlc 按下方规范生成。
+
+
 Operational guidance for coding agents working in this repository. Keep changes small, match the current rewrite architecture, and prefer the documented daemon/API boundaries over behavior from the old TypeScript implementation.
 
 Follow [CONTRIBUTING.md](CONTRIBUTING.md) before choosing an issue or starting work.
